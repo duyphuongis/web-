@@ -1,0 +1,39 @@
+<html>
+<head>
+<title> GPS monitor </title>
+<script src="jquery1.js"></script>
+<script src="socket.io/socket.io.js">  </script>
+
+<script>
+var socket = io("http://localhost:3000");
+	socket.on("data_From_Server", function(data){
+	$("#noidung").append(" SERVER : " + data);
+	});
+	socket.on("GPS_Data", function(data1){
+		
+		$("#lgtude").text(data1.longitude)
+		$("#latude").text(data1.latitude)
+		$("#time").text(data1.time);
+
+});
+$(document).ready(function(){
+	<!-- alert("hello, welcome!!!!!"); -->
+	socket.emit("client_Send", "hello");
+	
+});
+</script>
+</head>
+
+<body>
+<h1>GPS monitor<h1>
+<br>
+<h2 id="noidung"></h2>
+<br>
+<h4 id="lgtude"></h4>
+<br>
+<h4 id="latude"></h4>
+<br>
+<h4 id="time"></h4>
+</body>
+</html>
+
